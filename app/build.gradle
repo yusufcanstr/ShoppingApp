@@ -93,6 +93,9 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil:1.4.0")
 
+    //Image Slider
+    implementation "com.github.smarteist:autoimageslider:14.0"
+
     implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
 
     implementation "androidx.room:room-runtime:2.4.3"
