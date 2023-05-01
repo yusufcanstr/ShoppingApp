@@ -1,6 +1,7 @@
 package com.yusufcansenturk.ux_4_shoppingapp.di.retrofit
 
 import com.yusufcansenturk.ux_4_shoppingapp.models.Categories
+import com.yusufcansenturk.ux_4_shoppingapp.models.Products
 import com.yusufcansenturk.ux_4_shoppingapp.models.ProductsItem
 import retrofit2.Call
 import retrofit2.http.GET
@@ -9,27 +10,27 @@ import retrofit2.http.Path
 interface RetrofitServiceInstance {
 
     @GET("products")
-    fun getAllProducts(): Call<ProductsItem>
+    fun getAllProducts(): Call<List<ProductsItem>>
 
     @GET("products/{id}")
-    fun getSingleProduct(@Path("id") id:String) : Call<ProductsItem>
+    fun getSingleProduct(@Path("id") id:String) : Call<List<ProductsItem>>
 
     @GET("products?limit={limit}")
-    fun getLimitResults(@Path("limit") limit:Int) : Call<ProductsItem>
+    fun getLimitResults(@Path("limit") limit:Int) : Call<List<ProductsItem>>
 
     @GET("products/categories")
-    fun getAllCategories(): Call<Categories>
+    fun getAllCategories(): Call<List<ProductsItem>>
 
     @GET("products/category/jewelery")
-    fun getAllProductsJewelery() : Call<ProductsItem>
+    fun getAllProductsJewelery() : Call<List<ProductsItem>>
 
     @GET("products/category/electronics")
-    fun getAllProductsElectronics() : Call<ProductsItem>
+    fun getAllProductsElectronics() : Call<List<ProductsItem>>
 
     @GET("products/category/men's clothing")
-    fun getAllProductsMen() : Call<ProductsItem>
+    fun getAllProductsMen() : Call<List<ProductsItem>>
 
     @GET("products/category/women's clothing")
-    fun getAllProductsWoman() : Call<ProductsItem>
+    fun getAllProductsWoman() : Call<List<ProductsItem>>
 
 }

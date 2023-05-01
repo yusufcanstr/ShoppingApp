@@ -1,3 +1,5 @@
 package com.yusufcansenturk.ux_4_shoppingapp.models
 
-class Products : ArrayList<ProductsItem>()
+data class Products(
+    val data: List<ProductsItem>
+)

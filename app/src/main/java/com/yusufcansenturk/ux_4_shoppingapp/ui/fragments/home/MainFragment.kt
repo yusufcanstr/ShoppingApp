@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.fragment.findNavController
 import com.yusufcansenturk.ux_4_shoppingapp.R
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentMainBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -15,25 +16,39 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
 
+        setupTabBar()
 
         return view
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun setupTabBar() {
 
+        binding.navigationBar.setItemSelected(R.id.item_home, true)
+        binding.navigationBar.setOnItemSelectedListener{
+            when(it) {
+                R.id.item_home -> {
+                    childFragmentManager.primaryNavigationFragment?.findNavController()?.navigate(R.id.homeFragment)
+                }
+                R.id.item_favorite -> {
+                    childFragmentManager.primaryNavigationFragment?.findNavController()?.navigate(R.id.favoriteFragment)
+                }
+                R.id.item_profile -> {
+                    childFragmentManager.primaryNavigationFragment?.findNavController()?.navigate(R.id.profileFragment)
+                }
+                R.id.item_shoppincard -> {
+                    childFragmentManager.primaryNavigationFragment?.findNavController()?.navigate(R.id.shoppingCartFragment)
+                }
+
+            }
+        }
     }
 
     override fun onDestroyView() {

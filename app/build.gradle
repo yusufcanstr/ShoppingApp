@@ -93,8 +93,9 @@ dependencies {
     // Coil
     implementation("io.coil-kt:coil:1.4.0")
 
-    //Image Slider
-    implementation "com.github.smarteist:autoimageslider:14.0"
+    // LottieFiles
+    def lottieVersion = "3.4.0"
+    implementation "com.airbnb.android:lottie:$lottieVersion"
 
     implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
 

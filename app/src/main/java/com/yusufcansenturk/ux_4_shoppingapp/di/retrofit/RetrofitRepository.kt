@@ -11,13 +11,45 @@ class RetrofitRepository @Inject constructor(
     private val retrofitServiceInstance: RetrofitServiceInstance
 ) {
 
-    fun getAllProducts(liveData: MutableLiveData<ProductsItem>) {
-        retrofitServiceInstance.getAllProducts().enqueue(object : Callback<ProductsItem>{
-            override fun onResponse(call: Call<ProductsItem>, response: Response<ProductsItem>) {
+    fun getAllProducts(liveData: MutableLiveData<List<ProductsItem>>) {
+        retrofitServiceInstance.getAllProducts().enqueue(object : Callback<List<ProductsItem>>{
+            override fun onResponse(call: Call<List<ProductsItem>>, response: Response<List<ProductsItem>>) {
                 liveData.postValue(response.body())
             }
 
-            override fun onFailure(call: Call<ProductsItem>, t: Throwable) {
+            override fun onFailure(call: Call<List<ProductsItem>>, t: Throwable) {
+                liveData.postValue(null)
+            }
+
+        })
+    }
+
+    fun getMenProducts(liveData: MutableLiveData<List<ProductsItem>>) {
+        retrofitServiceInstance.getAllProductsMen().enqueue(object : Callback<List<ProductsItem>>{
+            override fun onResponse(
+                call: Call<List<ProductsItem>>,
+                response: Response<List<ProductsItem>>,
+            ) {
+                liveData.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<List<ProductsItem>>, t: Throwable) {
+                liveData.postValue(null)
+            }
+
+        })
+    }
+
+    fun getWomanProducts(liveData: MutableLiveData<List<ProductsItem>>) {
+        retrofitServiceInstance.getAllProductsWoman().enqueue(object : Callback<List<ProductsItem>>{
+            override fun onResponse(
+                call: Call<List<ProductsItem>>,
+                response: Response<List<ProductsItem>>,
+            ) {
+                liveData.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<List<ProductsItem>>, t: Throwable) {
                 liveData.postValue(null)
             }
 
