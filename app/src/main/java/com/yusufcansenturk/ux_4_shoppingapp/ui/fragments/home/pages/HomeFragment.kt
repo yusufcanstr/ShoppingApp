@@ -15,6 +15,7 @@ import com.yusufcansenturk.ux_4_shoppingapp.adapter.ProductsAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.WomanProductsAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentHomeBinding
 import com.yusufcansenturk.ux_4_shoppingapp.models.ProductsItem
+import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.FavoriteViewModel
 import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.HomePageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -29,6 +30,7 @@ class HomeFragment : Fragment() {
     private lateinit var womanProductsAdapter: WomanProductsAdapter
 
     private lateinit var viewModel: HomePageViewModel
+    private lateinit var favoriteViewModel: FavoriteViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +40,7 @@ class HomeFragment : Fragment() {
     private fun initRecyclerViews() {
 
         binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
-        productsAdapter = ProductsAdapter()
+        productsAdapter = ProductsAdapter(favoriteViewModel)
         binding.recyclerView.adapter = productsAdapter
 
         binding.manRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
@@ -65,6 +67,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this)[HomePageViewModel::class.java]
+        favoriteViewModel = ViewModelProvider(this)[FavoriteViewModel::class.java]
 
         initRecyclerViews()
 

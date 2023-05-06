@@ -8,13 +8,18 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.yusufcansenturk.ux_4_shoppingapp.R
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentMainBinding
+import com.yusufcansenturk.ux_4_shoppingapp.prefs.AppSessionManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
+
+    @Inject
+    lateinit var appSessionManager: AppSessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -23,6 +28,10 @@ class MainFragment : Fragment() {
     ): View {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
         val view = binding.root
+
+        if (appSessionManager.getIsFirstRun()) {
+            appSessionManager.setIsFirstRun(false)
+        }
 
         setupTabBar()
 

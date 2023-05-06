@@ -10,7 +10,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.yusufcansenturk.ux_4_shoppingapp.R
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentSplashBinding
+import com.yusufcansenturk.ux_4_shoppingapp.prefs.AppSessionManager
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SplashFragment : Fragment() {
@@ -18,6 +20,8 @@ class SplashFragment : Fragment() {
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
 
+    @Inject
+    lateinit var appSessionManager: AppSessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,7 +32,11 @@ class SplashFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed(
             {
-                findNavController().navigate(R.id.action_splashFragment_to_appIntroFragment)
+                if (appSessionManager.getIsFirstRun()) {
+                    findNavController().navigate(R.id.action_splashFragment_to_appIntroFragment)
+                }else {
+                    findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
+                }
             }, 3000)
 
         return view

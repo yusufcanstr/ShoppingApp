@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.navigation.fragment.findNavController
 import androidx.viewpager2.widget.ViewPager2
 import com.yusufcansenturk.ux_4_shoppingapp.R
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentFifthScreenBinding
@@ -35,6 +36,10 @@ class FifthScreen : Fragment() {
 
         nextButton?.alpha = 0f
         nextButton?.isClickable = false
+
+        binding.startButton.setOnClickListener {
+            findNavController().navigate(R.id.action_appIntroFragment_to_mainFragment)
+        }
 
     }
 
