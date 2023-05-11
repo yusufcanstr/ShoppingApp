@@ -1,13 +1,14 @@
-package com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite
+package com.yusufcansenturk.ux_4_shoppingapp.di.dao.basket
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "favoriteTable")
-data class FavoriteData(
+@Entity(tableName = "basketdatabase")
+data class BasketData(
     @PrimaryKey(autoGenerate = false)
     val product_id:Int,
     val title:String,
+    val productQuantity:Double,
     val price:Double,
     val description:String,
     val category:String,

@@ -2,27 +2,22 @@ package com.yusufcansenturk.ux_4_shoppingapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteRepository
 import com.yusufcansenturk.ux_4_shoppingapp.di.retrofit.RetrofitRepository
-import com.yusufcansenturk.ux_4_shoppingapp.models.Products
 import com.yusufcansenturk.ux_4_shoppingapp.models.ProductsItem
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class HomePageViewModel @Inject constructor(
-    private val repository: RetrofitRepository
+    private val repository: RetrofitRepository,
+    private val favoriteRepository: FavoriteRepository
 ) : ViewModel() {
 
-    val allProductsList : MutableLiveData<List<ProductsItem>>
-    val menProductsList : MutableLiveData<List<ProductsItem>>
-    val womanProductsList : MutableLiveData<List<ProductsItem>>
+    private val allProductsList : MutableLiveData<List<ProductsItem>> = MutableLiveData()
+    private val menProductsList : MutableLiveData<List<ProductsItem>> = MutableLiveData()
+    private val womanProductsList : MutableLiveData<List<ProductsItem>> = MutableLiveData()
 
-
-    init {
-        allProductsList = MutableLiveData()
-        menProductsList = MutableLiveData()
-        womanProductsList = MutableLiveData()
-    }
 
     fun getObserveLiveData(number:Int) : MutableLiveData<List<ProductsItem>> {
         if (number == 0) {
@@ -34,6 +29,10 @@ class HomePageViewModel @Inject constructor(
         }else {
             return MutableLiveData(null)
         }
+    }
+
+    fun addFavoriteProduct(product: ProductsItem) {
+        favoriteRepository.addProductFavorite(favoriteRepository.convertProductToFavorite(product))
     }
 
     fun loadData() {

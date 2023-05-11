@@ -1,14 +1,11 @@
 package com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite
 
-import androidx.room.Dao
-import androidx.room.Delete
-import androidx.room.Insert
-import androidx.room.Query
+import androidx.room.*
 
 @Dao
 interface FavoriteDao {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun addFavorite(favoriteData:FavoriteData)
 
     @Query("DELETE FROM favoriteTable WHERE product_id = :product_id")

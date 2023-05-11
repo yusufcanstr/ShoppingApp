@@ -1,61 +1,45 @@
 package com.yusufcansenturk.ux_4_shoppingapp.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.yusufcansenturk.ux_4_shoppingapp.R
+import com.yusufcansenturk.ux_4_shoppingapp.databinding.ItemProducts3Binding
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteData
-import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.FavoriteViewModel
+import com.yusufcansenturk.ux_4_shoppingapp.utils.enums.CartClickType
+import com.yusufcansenturk.ux_4_shoppingapp.utils.enums.FavoriteClickType
 
-class FavoriteAdapter(private val viewModel : FavoriteViewModel)
-    : RecyclerView.Adapter<FavoriteAdapter.MyCustomHolder>() {
+class FavoriteAdapter(
+    private var liveData: List<FavoriteData>,
+    private var onItemClick: (product: FavoriteData, type: FavoriteClickType) -> Unit,
+) : RecyclerView.Adapter<FavoriteAdapter.MyCustomHolder>() {
 
-    var liveData: List<FavoriteData>? = null
-
-    class MyCustomHolder(val view: View, val viewModel: FavoriteViewModel) : RecyclerView.ViewHolder(view) {
-        val txtTitle = view.findViewById<TextView>(R.id.product_title)
-        val txtCategory = view.findViewById<TextView>(R.id.product_category)
-        val txtRace = view.findViewById<TextView>(R.id.product_rate)
-        val txtPrice = view.findViewById<TextView>(R.id.txtPrice)
-        val imgProduct = view.findViewById<ImageView>(R.id.imgProduct2)
-        val deleteButton = view.findViewById<ImageView>(R.id.deleteButton)
-
+    class MyCustomHolder(val binding: ItemProducts3Binding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data:FavoriteData) {
-            txtTitle.text = data.title
-            txtCategory.text = data.category
-            txtRace.text = data.product_rate.toString()
-            txtPrice.text = data.price.toString()
+            binding.productTitle.text = data.title
+            binding.productCategory.text = data.category
+            binding.productRate.text = data.product_rate.toString()
+            binding.txtPrice.text = data.price.toString()
 
             Glide
-                .with(imgProduct)
+                .with(binding.imgProduct2)
                 .load(data.imageUrl)
-                .into(imgProduct)
+                .into(binding.imgProduct2)
 
-            deleteButton.setOnClickListener {
-                viewModel.deleteProductsFavorite(data.product_id)
-            }
+
+
         }
 
     }
 
-    fun setList(liveData: List<FavoriteData>) {
-        this.liveData = liveData
-        notifyDataSetChanged()
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCustomHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_products_3,parent, false)
-        return MyCustomHolder(view, viewModel)
+        val view = ItemProducts3Binding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyCustomHolder(view)
     }
 
     override fun getItemCount(): Int {
         if (liveData != null) {
-            return liveData!!.size
+            return liveData.size
         }else {
             return 0
         }
@@ -63,6 +47,15 @@ class FavoriteAdapter(private val viewModel : FavoriteViewModel)
 
     override fun onBindViewHolder(holder: MyCustomHolder, position: Int) {
         holder.bind(liveData!!.get(position))
+        holder.binding.apply {
+            deleteButton.setOnClickListener {
+                onItemClick(liveData.get(position), FavoriteClickType.DELETE)
+            }
+
+            sepeteEkleButton.setOnClickListener {
+                onItemClick(liveData.get(position), FavoriteClickType.BUY)
+            }
+        }
     }
 
 }

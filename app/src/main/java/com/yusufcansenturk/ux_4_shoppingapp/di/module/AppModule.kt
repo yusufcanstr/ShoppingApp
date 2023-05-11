@@ -3,6 +3,8 @@ package com.yusufcansenturk.ux_4_shoppingapp.di.module
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.yusufcansenturk.ux_4_shoppingapp.di.dao.basket.BasketDao
+import com.yusufcansenturk.ux_4_shoppingapp.di.dao.basket.BasketDatabase
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteDao
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteDatabase
 import com.yusufcansenturk.ux_4_shoppingapp.di.retrofit.RetrofitServiceInstance
@@ -30,6 +32,18 @@ object AppModule {
     @Provides
     @Singleton
     fun provideSessionManager(preferences: SharedPreferences) = AppSessionManager(preferences)
+
+    @Provides
+    @Singleton
+    fun getBasketDB(context: Application): BasketDatabase {
+        return BasketDatabase.getBasketDB(context)
+    }
+
+    @Provides
+    @Singleton
+    fun getBasketDao(DB: BasketDatabase): BasketDao {
+        return DB.getDAO()
+    }
 
     @Provides
     @Singleton

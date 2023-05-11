@@ -5,17 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.yusufcansenturk.ux_4_shoppingapp.R
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.MenProductsAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.ProductsAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.WomanProductsAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentHomeBinding
-import com.yusufcansenturk.ux_4_shoppingapp.models.ProductsItem
-import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.FavoriteViewModel
+import com.yusufcansenturk.ux_4_shoppingapp.utils.enums.HomeClickType
 import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.HomePageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,19 +28,16 @@ class HomeFragment : Fragment() {
     private lateinit var womanProductsAdapter: WomanProductsAdapter
 
     private lateinit var viewModel: HomePageViewModel
-    private lateinit var favoriteViewModel: FavoriteViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     private fun initRecyclerViews() {
-
-        binding.recyclerView.layoutManager = GridLayoutManager(requireContext(),2)
-        productsAdapter = ProductsAdapter(favoriteViewModel)
-        binding.recyclerView.adapter = productsAdapter
-
         binding.manRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
         menProductsAdapter = MenProductsAdapter()
         binding.manRecyclerView.adapter = menProductsAdapter
@@ -53,31 +48,34 @@ class HomeFragment : Fragment() {
 
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = binding.root
-
-        return view
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         viewModel = ViewModelProvider(this)[HomePageViewModel::class.java]
-        favoriteViewModel = ViewModelProvider(this)[FavoriteViewModel::class.java]
 
         initRecyclerViews()
 
         viewModel.loadData()
 
-        viewModel.getObserveLiveData(0).observe(viewLifecycleOwner
-        ) { t ->
-            if (t != null) {
-                productsAdapter.setList(t)
+        viewModel.getObserveLiveData(0).observe(viewLifecycleOwner) { productList ->
+            productList?.let {
+                binding.recyclerView.apply {
+                    adapter = ProductsAdapter(productList) { product, type ->
+                        when(type) {
+                            HomeClickType.FAVORİ -> {
+                                viewModel.addFavoriteProduct(product)
+                                Toast.makeText(requireContext(), "Favorilerden Eklendi", Toast.LENGTH_SHORT).show()
+                            }
+                            HomeClickType.IMAGE -> {
+                                //Go to Details Fragment
+                            }
+                            else -> {}
+                        }
+                    }
+                    binding.recyclerView.adapter = adapter
+                    binding.recyclerView.layoutManager = GridLayoutManager(requireContext(), 2)
+                }
             }
+
         }
 
         viewModel.getObserveLiveData(1).observe(viewLifecycleOwner

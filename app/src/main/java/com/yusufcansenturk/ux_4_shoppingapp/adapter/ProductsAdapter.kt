@@ -1,63 +1,34 @@
 package com.yusufcansenturk.ux_4_shoppingapp.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.yusufcansenturk.ux_4_shoppingapp.R
-import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteData
+import com.yusufcansenturk.ux_4_shoppingapp.databinding.ItemProductsBinding
 import com.yusufcansenturk.ux_4_shoppingapp.models.ProductsItem
-import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.FavoriteViewModel
+import com.yusufcansenturk.ux_4_shoppingapp.utils.enums.HomeClickType
 
-class ProductsAdapter(private val viewModel: FavoriteViewModel)
+class ProductsAdapter(
+    private var liveData: List<ProductsItem>,
+    private var onItemClick: (product: ProductsItem, type: HomeClickType) -> Unit,
+)
     : RecyclerView.Adapter<ProductsAdapter.MyCustomHolder>(){
 
-    var liveData: List<ProductsItem>? = null
-
-    fun setList(liveData: List<ProductsItem>) {
-        this.liveData = liveData
-        notifyDataSetChanged()
-    }
-
-    class MyCustomHolder(val view: View,val viewModel: FavoriteViewModel) : RecyclerView.ViewHolder(view) {
-        val txtTitle = view.findViewById<TextView>(R.id.txtTitle)
-        val txtPrice = view.findViewById<TextView>(R.id.txtPrice)
-        val imgProducts = view.findViewById<ImageView>(R.id.imgProduct)
-        val likeBtn = view.findViewById<ImageView>(R.id.like_btn)
-
+    class MyCustomHolder(val binding: ItemProductsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data:ProductsItem) {
-            txtTitle.text = data.title
-            txtPrice.text = "$ ${data.price.toString()}"
+            binding.txtTitle.text = data.title
+            binding.txtPrice.text = "$ ${data.price.toString()}"
 
             Glide
-                .with(imgProducts)
+                .with(binding.imgProduct)
                 .load(data.image)
-                .into(imgProducts)
-
-            likeBtn.setOnClickListener {
-                val favoriteData = FavoriteData(
-                    0,
-                    data.id,
-                    data.title,
-                    data.price,
-                    data.description,
-                    data.category,
-                    data.image,
-                    data.rating.rate,
-                    data.rating.count
-                )
-                viewModel.addProductsFavorite(favoriteData)
-            }
-
+                .into(binding.imgProduct)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyCustomHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_products,parent,false)
-        return MyCustomHolder(view, viewModel)
+        val view = ItemProductsBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return MyCustomHolder(view)
     }
 
     override fun getItemCount(): Int {
@@ -70,5 +41,11 @@ class ProductsAdapter(private val viewModel: FavoriteViewModel)
 
     override fun onBindViewHolder(holder: MyCustomHolder, position: Int) {
         holder.bind(liveData!!.get(position))
+        holder.binding.apply {
+            likeBtn.setOnClickListener {
+                onItemClick(liveData.get(position), HomeClickType.FAVORİ)
+            }
+        }
+
     }
 }
