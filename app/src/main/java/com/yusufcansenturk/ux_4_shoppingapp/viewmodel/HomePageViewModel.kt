@@ -17,6 +17,7 @@ class HomePageViewModel @Inject constructor(
     private val allProductsList : MutableLiveData<List<ProductsItem>> = MutableLiveData()
     private val menProductsList : MutableLiveData<List<ProductsItem>> = MutableLiveData()
     private val womanProductsList : MutableLiveData<List<ProductsItem>> = MutableLiveData()
+    private val singleProduct: MutableLiveData<ProductsItem> = MutableLiveData()
 
 
     fun getObserveLiveData(number:Int) : MutableLiveData<List<ProductsItem>> {
@@ -41,5 +42,12 @@ class HomePageViewModel @Inject constructor(
         repository.getWomanProducts(womanProductsList)
     }
 
+    fun loadSingleProduct(id:Int) {
+        repository.getSingleProduct(id, singleProduct)
+    }
+
+    fun getSingleProductObserveLiveData() : MutableLiveData<ProductsItem> {
+        return singleProduct
+    }
 
 }

@@ -2,10 +2,12 @@ package com.yusufcansenturk.ux_4_shoppingapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.ItemProductsBinding
 import com.yusufcansenturk.ux_4_shoppingapp.models.ProductsItem
+import com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.home.pages.HomeFragmentDirections
 import com.yusufcansenturk.ux_4_shoppingapp.utils.enums.HomeClickType
 
 class ProductsAdapter(
@@ -17,7 +19,7 @@ class ProductsAdapter(
     class MyCustomHolder(val binding: ItemProductsBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(data:ProductsItem) {
             binding.txtTitle.text = data.title
-            binding.txtPrice.text = "$ ${data.price.toString()}"
+            binding.txtPrice.text = "$ ${data.price}"
 
             Glide
                 .with(binding.imgProduct)
@@ -40,10 +42,14 @@ class ProductsAdapter(
     }
 
     override fun onBindViewHolder(holder: MyCustomHolder, position: Int) {
-        holder.bind(liveData!!.get(position))
+        holder.bind(liveData!![position])
         holder.binding.apply {
             likeBtn.setOnClickListener {
-                onItemClick(liveData.get(position), HomeClickType.FAVORİ)
+                onItemClick(liveData[position], HomeClickType.FAVORİ)
+            }
+            imgProduct.setOnClickListener {
+                val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(liveData[position].id)
+                Navigation.findNavController(it).navigate(action)
             }
         }
 

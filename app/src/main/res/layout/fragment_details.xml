@@ -1,136 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    app:barrierAllowsGoneWidgets="false"
     tools:context=".ui.fragments.home.DetailsFragment">
 
     <ImageView
-        android:id="@+id/product_imageView"
+        android:id="@+id/product_ImageView"
         android:layout_width="match_parent"
-        android:layout_height="420dp"
-        android:background="@color/icon_color_blue2"
+        android:layout_height="400dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="42dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/backButton"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:src="@drawable/baseline_arrow_back_24"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    
+    <ImageView
+        android:id="@+id/favorite_imageView1"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/favorite_button_1"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/favorite_imageView2"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_margin="10dp"
+        android:src="@drawable/favorite_button_2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addToCartButton"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/button_background"
+        android:text="+ Add To Cart"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <LinearLayout
-        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="-40dp"
-        android:layout_marginEnd="1dp"
-        android:background="@drawable/products_details_background"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:orientation="vertical"
-        android:padding="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/product_imageView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/product_imageView"
-        app:layout_constraintTop_toBottomOf="@+id/product_imageView">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/product_ImageView">
 
         <TextView
             android:id="@+id/product_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:maxLines="2"
-            android:layout_marginTop="10dp"
-            android:text="women blue denim eywa hoodie"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:textStyle="bold" />
+            android:textSize="19sp"
+            android:text="Mens Cotton Jacket" />
 
         <TextView
             android:id="@+id/product_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="women blue"
-            android:textAllCaps="false"
-            android:textColor="@color/black"
-            android:textSize="22sp"
-            android:textStyle="normal" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:text="men's clothing" />
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingLeft="10dp">
+            android:layout_marginTop="6dp">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_star_icon"/>
 
             <TextView
-                android:id="@+id/product_rate"
+                android:id="@+id/productRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="4.5"
-                android:textSize="17sp"
-                android:textStyle="normal" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/ic_star_icon" />
-
+                android:text="4.7"
+                android:textSize="19sp"/>
         </LinearLayout>
 
         <TextView
-            android:id="@+id/product_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="156.56 $"
-            android:textAllCaps="false"
-            android:textColor="#228FE6"
-            android:textSize="30sp"
-            android:textStyle="normal" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Descripton"
-            android:textAlignment="center"
-            android:textAllCaps="false"
-            android:textColor="#2A2A2A"
-            android:textSize="20sp"
-            android:textStyle="bold" />
+            android:text="Product Descripton"
+            android:textColor="@color/icon_color_blue2"
+            android:textSize="16sp"
+            android:layout_marginTop="10dp"/>
 
         <TextView
             android:id="@+id/product_descripton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAllCaps="false"
-            android:textColor="#2A2A2A"
-            android:textSize="17sp"
-            android:textStyle="normal" />
+            android:text="great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.n"
+            android:textSize="16sp"
+            android:layout_marginTop="2dp"/>
 
 
     </LinearLayout>
 
-
-    <Button
-        android:id="@+id/addToCartButton"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="12dp"
-        android:background="@drawable/button_background"
-        android:fontFamily="sans-serif-thin"
-        android:text="Sepete Ekle"
-        android:textAllCaps="false"
-        android:textSize="16sp"
+    <TextView
+        android:id="@id/product_price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="546.56 $"
+        android:textColor="@color/icon_color_blue2"
+        android:textSize="28sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout3"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <ImageView
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintBottom_toBottomOf="@+id/addToCartButton"
+        app:layout_constraintEnd_toStartOf="@+id/product_price"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/addToCartButton"
+        app:layout_constraintVertical_bias="0.0" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

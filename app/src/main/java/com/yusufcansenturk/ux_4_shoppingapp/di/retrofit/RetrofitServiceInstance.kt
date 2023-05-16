@@ -13,7 +13,7 @@ interface RetrofitServiceInstance {
     fun getAllProducts(): Call<List<ProductsItem>>
 
     @GET("products/{id}")
-    fun getSingleProduct(@Path("id") id:String) : Call<List<ProductsItem>>
+    fun getSingleProduct(@Path("id") id:Int) : Call<ProductsItem>
 
     @GET("products?limit={limit}")
     fun getLimitResults(@Path("limit") limit:Int) : Call<List<ProductsItem>>

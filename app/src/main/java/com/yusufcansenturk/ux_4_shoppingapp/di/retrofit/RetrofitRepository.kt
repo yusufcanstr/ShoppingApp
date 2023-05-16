@@ -1,7 +1,9 @@
 package com.yusufcansenturk.ux_4_shoppingapp.di.retrofit
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.yusufcansenturk.ux_4_shoppingapp.models.ProductsItem
+import com.yusufcansenturk.ux_4_shoppingapp.utils.Resource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -56,4 +58,16 @@ class RetrofitRepository @Inject constructor(
         })
     }
 
+    fun getSingleProduct(productId: Int, liveData: MutableLiveData<ProductsItem>){
+        retrofitServiceInstance.getSingleProduct(productId).enqueue(object : Callback<ProductsItem> {
+            override fun onResponse(call: Call<ProductsItem>, response: Response<ProductsItem>) {
+                liveData.postValue(response.body())
+            }
+
+            override fun onFailure(call: Call<ProductsItem>, t: Throwable) {
+                liveData.postValue(null)
+            }
+
+        })
+    }
 }

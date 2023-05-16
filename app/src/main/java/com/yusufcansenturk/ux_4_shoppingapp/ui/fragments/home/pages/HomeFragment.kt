@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
+import com.yusufcansenturk.ux_4_shoppingapp.R
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.MenProductsAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.ProductsAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.WomanProductsAdapter
@@ -93,6 +96,19 @@ class HomeFragment : Fragment() {
         }
 
 
+    }
+
+    override fun onResume() {
+        super.onResume()
+        progressBarShow()
+    }
+
+    private fun progressBarShow() {
+        val bottomNavigationView = requireActivity().findViewById<ChipNavigationBar>(R.id.navigationBar)
+        val fragmentContainerView2 = requireActivity().findViewById<FragmentContainerView>(R.id.fragmentContainerView2)
+        val layoutParams = fragmentContainerView2.layoutParams as ViewGroup.MarginLayoutParams
+        layoutParams.setMargins(0,0,0,bottomNavigationView.height)
+        bottomNavigationView.visibility = View.VISIBLE
     }
 
     override fun onDestroyView() {
