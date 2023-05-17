@@ -7,6 +7,7 @@ import com.yusufcansenturk.ux_4_shoppingapp.di.dao.basket.BasketRepository
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteData
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -17,6 +18,9 @@ class FavoriteViewModel @Inject constructor(
 ) : ViewModel() {
 
     var allData: MutableLiveData<List<FavoriteData>> = MutableLiveData()
+
+    private var initialSureList = listOf<FavoriteData>()
+    private var isSearchStarting = true
 
     init {
         loadRecords()
@@ -41,5 +45,34 @@ class FavoriteViewModel @Inject constructor(
             basketRepository.addBasketProduct(repository.convertFavoriteToBasket(favoriteData))
         }
     }
+
+    fun searchSureList(query: String) {
+        val listToSearch = if (isSearchStarting) {
+            allData.value ?: return
+        } else {
+            initialSureList
+        } ?: return
+
+        viewModelScope.launch(Dispatchers.Main) {
+            if (query.isEmpty()){
+                allData.value = initialSureList
+                isSearchStarting = true
+                return@launch
+            }
+
+            val results = listToSearch!!.filter {
+                it.title!!.contains(query.trim(), ignoreCase = true)
+            }
+
+            if (isSearchStarting) {
+                initialSureList = allData.value!!
+                isSearchStarting = false
+            }
+            allData.value = results
+        }
+
+    }
+
+
 
 }

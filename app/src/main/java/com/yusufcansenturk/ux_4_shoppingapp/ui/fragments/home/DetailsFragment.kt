@@ -12,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import com.yusufcansenturk.ux_4_shoppingapp.R
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentDetailsBinding
+import com.yusufcansenturk.ux_4_shoppingapp.utils.SuccessToast
 import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.HomePageViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -55,6 +56,7 @@ class DetailsFragment : Fragment() {
                 binding.addToCartButton.setOnClickListener {
                     // Ad To Cart
                     viewModel.addBasketProduct(productItem)
+                    SuccessToast(requireActivity(), "Ürün başarılı bir şekilde sepetinize eklenmiştir.")
                 }
             }
         }

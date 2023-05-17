@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.BasketAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentShoppingCartBinding
+import com.yusufcansenturk.ux_4_shoppingapp.utils.WarningToast
 import com.yusufcansenturk.ux_4_shoppingapp.utils.enums.CartClickType
 import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.BasketViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -39,6 +40,7 @@ class ShoppingCartFragment : Fragment() {
                     when(type) {
                         CartClickType.DELETE -> {
                             viewModel.deleteProductsBasket(product)
+                            WarningToast(requireActivity(), "Ürün sepet'den çıkarıldı !")
                         }
                         CartClickType.ADD -> {
                             viewModel.addProductsBasket(product)

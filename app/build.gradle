@@ -71,6 +71,9 @@ dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-reflect:1.7.21"
 
+    //MotionToast
+    implementation 'com.github.Spikeysanju:MotionToast:1.4'
+
     //bottombaar
     implementation 'com.github.ismaeldivita:chip-navigation-bar:1.4.0'
     // Retrofit

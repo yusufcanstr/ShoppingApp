@@ -21,6 +21,7 @@ import com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.home.ListFragmentDirect
 import com.yusufcansenturk.ux_4_shoppingapp.utils.Constants.ALL_PRODUCTS
 import com.yusufcansenturk.ux_4_shoppingapp.utils.Constants.MEN
 import com.yusufcansenturk.ux_4_shoppingapp.utils.Constants.WOMEN
+import com.yusufcansenturk.ux_4_shoppingapp.utils.SuccessToast
 import com.yusufcansenturk.ux_4_shoppingapp.utils.enums.HomeClickType
 import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.HomePageViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -72,7 +73,7 @@ class HomeFragment : Fragment() {
                         when(type) {
                             HomeClickType.FAVORİ -> {
                                 viewModel.addFavoriteProduct(product)
-                                Toast.makeText(requireContext(), "Favorilerden Eklendi", Toast.LENGTH_SHORT).show()
+                                SuccessToast(requireActivity(),"Favorileri listenize ürün eklendi !")
                             }
                             HomeClickType.IMAGE -> {
                                 //Go to Details Fragment
