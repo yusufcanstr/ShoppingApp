@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
@@ -16,6 +17,10 @@ import com.yusufcansenturk.ux_4_shoppingapp.adapter.MenProductsAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.ProductsAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.WomanProductsAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentHomeBinding
+import com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.home.ListFragmentDirections
+import com.yusufcansenturk.ux_4_shoppingapp.utils.Constants.ALL_PRODUCTS
+import com.yusufcansenturk.ux_4_shoppingapp.utils.Constants.MEN
+import com.yusufcansenturk.ux_4_shoppingapp.utils.Constants.WOMEN
 import com.yusufcansenturk.ux_4_shoppingapp.utils.enums.HomeClickType
 import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.HomePageViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +31,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var productsAdapter: ProductsAdapter
     private lateinit var menProductsAdapter: MenProductsAdapter
     private lateinit var womanProductsAdapter: WomanProductsAdapter
 
@@ -37,6 +41,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        progressBarShow()
         return binding.root
     }
 
@@ -56,6 +61,7 @@ class HomeFragment : Fragment() {
         viewModel = ViewModelProvider(this)[HomePageViewModel::class.java]
 
         initRecyclerViews()
+        goToListFragment()
 
         viewModel.loadData()
 
@@ -96,6 +102,21 @@ class HomeFragment : Fragment() {
         }
 
 
+    }
+
+    private fun goToListFragment() {
+        binding.seeAllButton.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToListFragment(ALL_PRODUCTS)
+            Navigation.findNavController(it).navigate(action)
+        }
+        binding.menSeeAllButton.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToListFragment(MEN)
+            Navigation.findNavController(it).navigate(action)
+        }
+        binding.womanSeeAllButton.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToListFragment(WOMEN)
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 
     override fun onResume() {

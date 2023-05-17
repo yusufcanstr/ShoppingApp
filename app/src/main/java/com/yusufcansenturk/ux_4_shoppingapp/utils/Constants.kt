@@ -5,4 +5,10 @@ object Constants {
     val THEME_KEY = "isDarkMode"
     val FIRST_RUN_KEY = "isFirstRun"
     val PREF_NAME = "shoppingPref"
+
+    val ALL_PRODUCTS = "all"
+    val WOMEN = "women"
+    val MEN = "men"
+    val JEWELERY = "jewelery"
+    val ELECTRONICS = "electronics"
 }

@@ -2,6 +2,8 @@ package com.yusufcansenturk.ux_4_shoppingapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.yusufcansenturk.ux_4_shoppingapp.di.dao.basket.BasketData
+import com.yusufcansenturk.ux_4_shoppingapp.di.dao.basket.BasketRepository
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteRepository
 import com.yusufcansenturk.ux_4_shoppingapp.di.retrofit.RetrofitRepository
 import com.yusufcansenturk.ux_4_shoppingapp.models.ProductsItem
@@ -11,7 +13,8 @@ import javax.inject.Inject
 @HiltViewModel
 class HomePageViewModel @Inject constructor(
     private val repository: RetrofitRepository,
-    private val favoriteRepository: FavoriteRepository
+    private val favoriteRepository: FavoriteRepository,
+    private val basketRepository: BasketRepository
 ) : ViewModel() {
 
     private val allProductsList : MutableLiveData<List<ProductsItem>> = MutableLiveData()
@@ -40,6 +43,12 @@ class HomePageViewModel @Inject constructor(
         repository.getAllProducts(allProductsList)
         repository.getMenProducts(menProductsList)
         repository.getWomanProducts(womanProductsList)
+    }
+
+    fun addBasketProduct(product: ProductsItem) {
+        basketRepository.addBasketProduct(
+            favoriteRepository.convertFavoriteToBasket(favoriteRepository.convertProductToFavorite(product))
+        )
     }
 
     fun loadSingleProduct(id:Int) {

@@ -48,6 +48,6 @@ class MenProductsAdapter : RecyclerView.Adapter<MenProductsAdapter.MyCustomHolde
     }
 
     override fun onBindViewHolder(holder: MyCustomHolder, position: Int) {
-        holder.bind(liveData!!.get(position))
+        holder.bind(liveData!![position])
     }
 }

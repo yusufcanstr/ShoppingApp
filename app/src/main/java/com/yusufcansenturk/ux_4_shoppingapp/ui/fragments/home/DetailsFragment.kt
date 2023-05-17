@@ -51,6 +51,11 @@ class DetailsFragment : Fragment() {
                 binding.productDescripton.text = productItem.description
                 binding.productRate.text = productItem.rating.rate.toString()
                 Glide.with(requireContext()).load(productItem.image).centerCrop().into(binding.productImageView)
+
+                binding.addToCartButton.setOnClickListener {
+                    // Ad To Cart
+                    viewModel.addBasketProduct(productItem)
+                }
             }
         }
 
