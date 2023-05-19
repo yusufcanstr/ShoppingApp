@@ -49,7 +49,8 @@ class ListAdapter(
                 onItemClick(liveData[position], HomeClickType.FAVORİ)
             }
             imgProduct.setOnClickListener {
-                onItemClick(liveData[position], HomeClickType.IMAGE)
+                val action = ListFragmentDirections.actionListFragmentToDetailsFragment(liveData[position].id)
+                Navigation.findNavController(it).navigate(action)
             }
         }
 

@@ -12,9 +12,9 @@
         android:id="@+id/product_ImageView"
         android:layout_width="match_parent"
         android:layout_height="400dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginRight="50dp"
         android:layout_marginTop="42dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -63,69 +63,81 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:orientation="vertical"
+        android:layout_marginBottom="24dp"
+        app:layout_constraintBottom_toTopOf="@+id/addToCartButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/product_ImageView">
 
-        <TextView
-            android:id="@+id/product_title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="19sp"
-            android:text="Mens Cotton Jacket" />
-
-        <TextView
-            android:id="@+id/product_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            android:text="men's clothing" />
-
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="6dp">
-            <ImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                android:src="@drawable/ic_star_icon"/>
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/product_ImageView">
 
             <TextView
-                android:id="@+id/productRate"
-                android:layout_width="wrap_content"
+                android:id="@+id/product_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="4.7"
-                android:textSize="19sp"/>
+                android:text="Mens Cotton Jacket"
+                android:textSize="19sp" />
+
+            <TextView
+                android:id="@+id/product_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="men's clothing"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:src="@drawable/ic_star_icon" />
+
+                <TextView
+                    android:id="@+id/productRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4.7"
+                    android:textSize="19sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="Product Descripton"
+                android:textColor="@color/icon_color_blue2"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/product_descripton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:text="great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.n"
+                android:textSize="16sp" />
+
+
         </LinearLayout>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Product Descripton"
-            android:textColor="@color/icon_color_blue2"
-            android:textSize="16sp"
-            android:layout_marginTop="10dp"/>
-
-        <TextView
-            android:id="@+id/product_descripton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="great outerwear jackets for Spring/Autumn/Winter, suitable for many occasions, such as working, hiking, camping, mountain/rock climbing, cycling, traveling or other outdoors. Good gift choice for you or your family member. A warm hearted love to Father, husband or son in this thanksgiving or Christmas Day.n"
-            android:textSize="16sp"
-            android:layout_marginTop="2dp"/>
-
-
-    </LinearLayout>
+    </ScrollView>
 
     <TextView
         android:id="@id/product_price"

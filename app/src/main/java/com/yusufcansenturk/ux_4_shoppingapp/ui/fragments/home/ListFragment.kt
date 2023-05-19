@@ -31,7 +31,7 @@ class ListFragment : Fragment() {
     ): View {
         _binding = FragmentListBinding.inflate(inflater, container, false)
 
-        //Ürünler men woman se all şeklinde listelemek
+
 
         return binding.root
     }

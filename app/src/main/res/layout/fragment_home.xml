@@ -45,11 +45,11 @@
                     android:text="See All" />
 
                 <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_next_icon" />
 
             </LinearLayout>
 
@@ -95,11 +95,11 @@
                     android:text="See All" />
 
                 <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_next_icon" />
 
             </LinearLayout>
 
@@ -146,11 +146,11 @@
                     android:text="See All" />
 
                 <ImageView
-                    android:layout_width="10dp"
-                    android:layout_height="10dp"
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-                    android:src="@drawable/ic_launcher_background" />
+                    android:src="@drawable/ic_next_icon" />
 
             </LinearLayout>
 

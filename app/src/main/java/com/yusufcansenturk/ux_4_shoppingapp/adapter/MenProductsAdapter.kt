@@ -5,10 +5,12 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.yusufcansenturk.ux_4_shoppingapp.R
 import com.yusufcansenturk.ux_4_shoppingapp.models.ProductsItem
+import com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.home.pages.HomeFragmentDirections
 
 class MenProductsAdapter : RecyclerView.Adapter<MenProductsAdapter.MyCustomHolder>(){
 
@@ -49,5 +51,9 @@ class MenProductsAdapter : RecyclerView.Adapter<MenProductsAdapter.MyCustomHolde
 
     override fun onBindViewHolder(holder: MyCustomHolder, position: Int) {
         holder.bind(liveData!![position])
+        holder.imgProducts.setOnClickListener {
+            val action = HomeFragmentDirections.actionHomeFragmentToDetailsFragment(liveData!![position].id)
+            Navigation.findNavController(it).navigate(action)
+        }
     }
 }

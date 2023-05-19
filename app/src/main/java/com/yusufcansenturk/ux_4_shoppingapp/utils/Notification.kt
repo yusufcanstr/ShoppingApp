@@ -7,7 +7,7 @@ import www.sanju.motiontoast.MotionToastStyle
 
 
 fun SuccessToast(activity: Activity, message:String) {
-    MotionToast.createToast(
+    MotionToast.darkToast(
         activity,
         "Başarılı",
         message,
@@ -19,7 +19,7 @@ fun SuccessToast(activity: Activity, message:String) {
 }
 
 fun ErrorToast(activity: Activity, message:String) {
-    MotionToast.createToast(
+    MotionToast.darkToast(
         activity,
         "Hata",
         message,
@@ -31,7 +31,7 @@ fun ErrorToast(activity: Activity, message:String) {
 }
 
 fun WarningToast(activity: Activity, message:String) {
-    MotionToast.createToast(
+    MotionToast.darkToast(
         activity,
         "Uyarı",
         message,
@@ -43,7 +43,7 @@ fun WarningToast(activity: Activity, message:String) {
 }
 
 fun InfoToast(activity: Activity, message:String) {
-    MotionToast.createToast(
+    MotionToast.darkToast(
         activity,
         "Bilgi",
         message,
@@ -55,7 +55,7 @@ fun InfoToast(activity: Activity, message:String) {
 }
 
 fun DeleteToast(activity: Activity, message:String) {
-    MotionToast.createToast(
+    MotionToast.darkToast(
         activity,
         "Bilgi",
         message,
