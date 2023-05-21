@@ -20,8 +20,6 @@ class SplashFragment : Fragment() {
     private var _binding: FragmentSplashBinding? = null
     private val binding get() = _binding!!
 
-    @Inject
-    lateinit var appSessionManager: AppSessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,11 +30,7 @@ class SplashFragment : Fragment() {
 
         Handler(Looper.getMainLooper()).postDelayed(
             {
-                if (appSessionManager.getIsFirstRun()) {
-                    findNavController().navigate(R.id.action_splashFragment_to_appIntroFragment)
-                }else {
-                    findNavController().navigate(R.id.action_splashFragment_to_mainFragment)
-                }
+                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
             }, 3000)
 
         return view
