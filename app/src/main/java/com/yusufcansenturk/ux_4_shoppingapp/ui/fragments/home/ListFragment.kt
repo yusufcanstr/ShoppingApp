@@ -14,6 +14,7 @@ import com.yusufcansenturk.ux_4_shoppingapp.R
 import com.yusufcansenturk.ux_4_shoppingapp.adapter.ListAdapter
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentListBinding
 import com.yusufcansenturk.ux_4_shoppingapp.utils.Constants.ALL_PRODUCTS
+import com.yusufcansenturk.ux_4_shoppingapp.utils.SuccessToast
 import com.yusufcansenturk.ux_4_shoppingapp.utils.enums.HomeClickType
 import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.ListViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -53,6 +54,8 @@ class ListFragment : Fragment() {
                         when(type) {
                             HomeClickType.FAVORİ -> {
                                 //Ad Favorite
+                                viewModel.addProductFavorites(product)
+                                SuccessToast(requireActivity(), "Ürün başarılı bir şekilde favoriler listenize eklenmiştir.")
                             }
                             HomeClickType.IMAGE -> {
                                 //Go to Details Fragment

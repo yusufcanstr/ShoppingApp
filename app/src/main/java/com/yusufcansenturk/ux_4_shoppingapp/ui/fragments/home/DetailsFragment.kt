@@ -58,6 +58,15 @@ class DetailsFragment : Fragment() {
                     viewModel.addBasketProduct(productItem)
                     SuccessToast(requireActivity(), "Ürün başarılı bir şekilde sepetinize eklenmiştir.")
                 }
+
+                binding.favoriteImageView2.setOnClickListener {
+                    viewModel.addFavoriteProduct(productItem)
+                    SuccessToast(requireActivity(), "Ürün Favoriler listenize eklenmiştir.")
+                }
+
+                binding.favoriteImageView1.setOnClickListener {
+                    //Remove products from favorites
+                }
             }
         }
 

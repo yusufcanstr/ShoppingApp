@@ -2,6 +2,7 @@ package com.yusufcansenturk.ux_4_shoppingapp.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteRepository
 import com.yusufcansenturk.ux_4_shoppingapp.di.retrofit.RetrofitRepository
 import com.yusufcansenturk.ux_4_shoppingapp.models.ProductsItem
 import com.yusufcansenturk.ux_4_shoppingapp.utils.Constants
@@ -10,7 +11,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class ListViewModel @Inject constructor(
-    private val repository: RetrofitRepository
+    private val repository: RetrofitRepository,
+    private val favoriteRepository: FavoriteRepository
 ) : ViewModel() {
 
     private val productsList = MutableLiveData<List<ProductsItem>>()
@@ -48,6 +50,10 @@ class ListViewModel @Inject constructor(
                 MutableLiveData(null)
             }
         }
+    }
+
+    fun addProductFavorites(productsItem: ProductsItem) {
+        favoriteRepository.addProductFavorite(favoriteRepository.convertProductToFavorite(productsItem))
     }
 
 

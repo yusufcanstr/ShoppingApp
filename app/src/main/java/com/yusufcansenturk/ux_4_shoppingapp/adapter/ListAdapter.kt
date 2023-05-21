@@ -14,7 +14,7 @@ import com.yusufcansenturk.ux_4_shoppingapp.utils.enums.HomeClickType
 
 class ListAdapter(
     private var liveData: List<ProductsItem>,
-    private var onItemClick: (Any?, Any?) -> Unit,
+    private var onItemClick: (product: ProductsItem, type: HomeClickType) -> Unit,
 ) : RecyclerView.Adapter<ListAdapter.MyCustomHolder>(){
 
     class MyCustomHolder(val binding: ItemProductsBinding) : RecyclerView.ViewHolder(binding.root) {
