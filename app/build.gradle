@@ -107,6 +107,10 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:20.4.1'
     implementation 'com.google.firebase:firebase-auth-ktx'
 
+    //CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+
     implementation "androidx.localbroadcastmanager:localbroadcastmanager:1.1.0"
 
     implementation "androidx.room:room-runtime:2.4.3"
