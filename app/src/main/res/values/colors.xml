@@ -11,6 +11,13 @@
 
     <color name="icon_color_blue">#b3c8f1</color>
     <color name="icon_color_blue2">#2196F3</color>
+    <color name="blue_background">#D6EAFF</color>
+    <color name="blue_background2">#90C3FA</color>
+    <color name="blue_border">#5491D2</color>
+    <color name="blue_textView">#1B6BBD</color>
+    <color name="red_background">#FED4D4</color>
+    <color name="red_textViewColor">#FC2828</color>
+
 
     <color name="blue_color">#DA45606D</color>
     <color name="yellow_color">#FFFEB603</color>

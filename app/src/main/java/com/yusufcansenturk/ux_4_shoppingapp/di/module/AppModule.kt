@@ -3,10 +3,13 @@ package com.yusufcansenturk.ux_4_shoppingapp.di.module
 import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
+import com.google.firebase.auth.FirebaseAuth
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.basket.BasketDao
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.basket.BasketDatabase
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteDao
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteDatabase
+import com.yusufcansenturk.ux_4_shoppingapp.di.firebase.AuthRepository
+import com.yusufcansenturk.ux_4_shoppingapp.di.firebase.AuthRepositoryImp
 import com.yusufcansenturk.ux_4_shoppingapp.di.retrofit.RetrofitServiceInstance
 import com.yusufcansenturk.ux_4_shoppingapp.prefs.AppSessionManager
 import com.yusufcansenturk.ux_4_shoppingapp.utils.Constants
@@ -25,8 +28,14 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
+    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
+
+    @Provides
+    fun provideFirebaseRepository(imp: AuthRepositoryImp): AuthRepository = imp
+
+    @Provides
     @Singleton
-    fun providesSharedPreferences(@ApplicationContext context: Context) =
+    fun providesSharedPreferences(@ApplicationContext context: Context): SharedPreferences =
         context.getSharedPreferences(Constants.PREF_NAME, Context.MODE_PRIVATE)
 
     @Provides
