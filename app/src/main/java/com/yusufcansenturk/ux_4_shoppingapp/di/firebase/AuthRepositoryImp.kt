@@ -1,42 +1,87 @@
 package com.yusufcansenturk.ux_4_shoppingapp.di.firebase
 
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
-import com.google.firebase.auth.UserProfileChangeRequest
-import com.yusufcansenturk.ux_4_shoppingapp.utils.AuthResource
-import com.yusufcansenturk.ux_4_shoppingapp.utils.await
-import javax.inject.Inject
+import com.google.firebase.auth.*
+import com.google.firebase.firestore.FirebaseFirestore
+import com.yusufcansenturk.ux_4_shoppingapp.models.User
+import com.yusufcansenturk.ux_4_shoppingapp.utils.FireStoreCollection
+import com.yusufcansenturk.ux_4_shoppingapp.utils.UiState
 
-class AuthRepositoryImp @Inject constructor(
-    private val firebaseAuth: FirebaseAuth
+class AuthRepositoryImp(
+    private val auth: FirebaseAuth,
+    private val database: FirebaseFirestore
 ) : AuthRepository {
-    override val currentUser: FirebaseUser?
-        get() = firebaseAuth.currentUser
+    override fun registerUser(
+        email: String,
+        password: String,
+        user: User, result: (UiState<String>) -> Unit
+    ) {
+        auth.createUserWithEmailAndPassword(email,password)
+            .addOnCompleteListener {
+                if (it.isSuccessful){
+                    updateUserInfo(user) { state ->
+                        when(state) {
+                            is UiState.Success -> {
+                                result.invoke(
+                                    UiState.Success("User register successfully !")
+                                )
+                            }
+                            is UiState.Failure -> {
+                                result.invoke(UiState.Failure(state.error))
+                            }
+                            else -> {}
+                        }
+                    }
 
-    override suspend fun login(email: String, password: String): AuthResource<FirebaseUser> {
-        val result = try {
-            val result = firebaseAuth.signInWithEmailAndPassword(email, password).await()
-            AuthResource.Success(result.user!!)
-        }catch (e:Exception) {
-            e.printStackTrace()
-            AuthResource.Failure(e)
-        }
-        return result
+                }else{
+                    try {
+                        throw it.exception ?: java.lang.Exception("Invalid authentication")
+                    } catch (e: FirebaseAuthWeakPasswordException) {
+                        result.invoke(UiState.Failure("Authentication failed, Password should be at least 6 characters"))
+                    } catch (e: FirebaseAuthInvalidCredentialsException) {
+                        result.invoke(UiState.Failure("Authentication failed, Invalid email entered"))
+                    } catch (e: FirebaseAuthUserCollisionException) {
+                        result.invoke(UiState.Failure("Authentication failed, Email already registered."))
+                    } catch (e: Exception) {
+                        result.invoke(UiState.Failure(e.message))
+                    }
+                }
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
     }
 
-    override suspend fun signup(name: String, email: String, password: String ): AuthResource<FirebaseUser> {
-        val result = try {
-            val result = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
-            result?.user?.updateProfile(UserProfileChangeRequest.Builder().setDisplayName(name).build())?.await()
-            AuthResource.Success(result.user!!)
-        }catch (e:Exception) {
-            e.printStackTrace()
-            AuthResource.Failure(e)
-        }
-        return result
+    override fun updateUserInfo(user: User, result: (UiState<String>) -> Unit) {
+        val document = database.collection(FireStoreCollection.USER).document()
+        user.id = document.id
+        document
+            .set(user)
+            .addOnSuccessListener {
+                result.invoke(
+                    UiState.Success("User has been update successfully")
+                )
+            }
+            .addOnFailureListener {
+                result.invoke(
+                    UiState.Failure(
+                        it.localizedMessage
+                    )
+                )
+            }
+
     }
 
-    override fun logout() {
-        firebaseAuth.signOut()
+    override fun loginUser(user: User, result: (UiState<String>) -> Unit) {
+        TODO("Not yet implemented")
     }
+
+    override fun forgotPassword(user: User, result: (UiState<String>) -> Unit) {
+        TODO("Not yet implemented")
+    }
+
+
 }

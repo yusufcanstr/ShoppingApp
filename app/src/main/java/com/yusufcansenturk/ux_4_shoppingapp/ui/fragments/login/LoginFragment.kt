@@ -18,6 +18,7 @@ import com.yusufcansenturk.ux_4_shoppingapp.utils.SuccessToast
 import com.yusufcansenturk.ux_4_shoppingapp.utils.WarningToast
 import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -35,7 +36,7 @@ class LoginFragment : Fragment() {
         savedInstanceState: Bundle?,
     ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
-
+/*
         viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
         viewModel.viewModelScope.launch {
             viewModel.loginFlow.collect { resource ->
@@ -50,6 +51,8 @@ class LoginFragment : Fragment() {
             }
         }
 
+ */
+
         return binding.root
     }
 
@@ -59,13 +62,15 @@ class LoginFragment : Fragment() {
         binding.signupTextView.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_signupFragment)
         }
-
+/*
         binding.loginButton.setOnClickListener {
             loginButtonFun()
         }
 
-    }
+ */
 
+    }
+/*
     private fun loginButtonFun() {
         val email : String = binding.emailEditText.text.toString()
         val password: String = binding.passwordEditText.text.toString()
@@ -73,10 +78,10 @@ class LoginFragment : Fragment() {
             WarningToast(requireActivity(), "Email ve şifrenizi giriniz ve Tekrar deneyiniz")
         }else {
             viewModel.login(email, password)
-            SuccessToast(requireActivity(), "Giriş başarı ile yapıldı.")
-            findNavController().navigate(R.id.action_loginFragment_to_mainFragment)
         }
     }
+
+ */
 
 
     override fun onDestroyView() {

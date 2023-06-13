@@ -65,3 +65,15 @@ fun DeleteToast(activity: Activity, message:String) {
         ResourcesCompat.getFont(activity, www.sanju.motiontoast.R.font.helvetica_regular)
     )
 }
+
+fun InfoToast2(activity: Activity, message:String) {
+    MotionToast.createToast(
+        activity,
+        "Bilgi",
+        message,
+        MotionToastStyle.DELETE,
+        MotionToast.GRAVITY_BOTTOM,
+        MotionToast.SHORT_DURATION,
+        ResourcesCompat.getFont(activity, www.sanju.motiontoast.R.font.helvetica_regular)
+    )
+}

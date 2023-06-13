@@ -6,75 +6,111 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.yusufcansenturk.ux_4_shoppingapp.R
 import com.yusufcansenturk.ux_4_shoppingapp.databinding.FragmentSignupBinding
+import com.yusufcansenturk.ux_4_shoppingapp.models.User
 import com.yusufcansenturk.ux_4_shoppingapp.prefs.AppSessionManager
-import com.yusufcansenturk.ux_4_shoppingapp.utils.SuccessToast
-import com.yusufcansenturk.ux_4_shoppingapp.utils.WarningToast
+import com.yusufcansenturk.ux_4_shoppingapp.utils.*
 import com.yusufcansenturk.ux_4_shoppingapp.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class SignupFragment : Fragment() {
-    private var _binding: FragmentSignupBinding? = null
-    private val binding get() = _binding!!
+    private lateinit var binding: FragmentSignupBinding
+    private val viewModel: LoginViewModel by viewModels()
 
     @Inject
-    lateinit var appSessionManager: AppSessionManager
-    private lateinit var viewModel: LoginViewModel
+    lateinit var sessionManager: AppSessionManager
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View {
-        _binding = FragmentSignupBinding.inflate(inflater, container, false)
+        binding = FragmentSignupBinding.inflate(layoutInflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        viewModel = ViewModelProvider(this)[LoginViewModel::class.java]
-
-        binding.backButton.setOnClickListener {
-            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
-        }
-
+        observer()
         binding.signupButton.setOnClickListener {
-            signupButtonFun()
-        }
-
-        binding.loginTextView.setOnClickListener {
-            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
-        }
-
-    }
-
-    private fun signupButtonFun() {
-        val name: String = binding.nameEditText.text.toString()
-        val email: String = binding.emailEditText.text.toString()
-        val password: String = binding.passwordEditText.text.toString()
-        val password2: String = binding.password2EditText.text.toString()
-
-        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(password) || TextUtils.isEmpty(password2) || TextUtils.isEmpty(name)) {
-            WarningToast(requireActivity(), "Email ve şifrenizi giriniz ve tekrar deneyiniz")
-        } else {
-            viewModel.signup(name, email, password)
-            SuccessToast(requireActivity(), "Hoşgeldiniz, uygulamaya üyeliğiniz başarılı bir şekilde yapılmıştır.")
-
-            if (appSessionManager.getIsFirstRun()) {
-                findNavController().navigate(R.id.action_signupFragment_to_appIntroFragment)
-            } else {
-                findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
+            if (validation()){
+                viewModel.register(
+                    email = binding.emailEditText.text.toString(),
+                    password = binding.passwordEditText.toString(),
+                    user =  getUserObj()
+                )
             }
         }
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun observer() {
+        viewModel.register.observe(viewLifecycleOwner) { state ->
+            when(state){
+                is UiState.Loading -> {
+                    binding.signupButton.text = ""
+                    binding.registerProgress.show()
+                }
+                is UiState.Failure -> {
+                    binding.signupButton.text = "Register"
+                    binding.registerProgress.hide()
+                    ErrorToast(requireActivity(),state.error.toString())
+                }
+                is UiState.Success -> {
+                    binding.signupButton.text = "Register"
+                    binding.registerProgress.hide()
+                    SuccessToast(requireActivity(),state.data)
+                    if (sessionManager.getIsFirstRun()){
+                        findNavController().navigate(R.id.action_signupFragment_to_appIntroFragment)
+                    }else{
+                        findNavController().navigate(R.id.action_signupFragment_to_mainFragment)
+                    }
+                }
+            }
+        }
     }
+
+    private fun getUserObj(): User {
+        return User(
+            id = "",
+            first_name = binding.nameEditText.text.toString(),
+            email = binding.emailEditText.text.toString()
+        )
+    }
+
+    private fun validation(): Boolean {
+        var isValid = true
+
+        if (binding.nameEditText.text.isNullOrEmpty()) {
+            isValid = false
+            SuccessToast(requireActivity(),"Enter Name")
+        }
+
+        if (binding.emailEditText.text.isNullOrEmpty()) {
+            isValid = false
+            SuccessToast(requireActivity(),"Enter Email")
+        }
+
+        if (binding.passwordEditText.text.isNullOrEmpty()) {
+            isValid = false
+            SuccessToast(requireActivity(), "Enter Password")
+        }
+
+        if (binding.password2EditText.text.isNullOrEmpty()) {
+            isValid = false
+            SuccessToast(requireActivity(), "Enter Confrim Password")
+        }
+
+        if (binding.passwordEditText.text.toString() != binding.password2EditText.text.toString()) {
+            isValid = false
+            SuccessToast(requireActivity(), "Passwords do not match!")
+        }
+
+        return isValid
+    }
+
 }

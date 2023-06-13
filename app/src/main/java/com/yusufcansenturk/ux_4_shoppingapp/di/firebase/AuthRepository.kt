@@ -1,12 +1,12 @@
 package com.yusufcansenturk.ux_4_shoppingapp.di.firebase
 
-import com.google.firebase.auth.FirebaseUser
-import com.yusufcansenturk.ux_4_shoppingapp.utils.AuthResource
+import com.yusufcansenturk.ux_4_shoppingapp.models.User
+import com.yusufcansenturk.ux_4_shoppingapp.utils.UiState
 
 
 interface AuthRepository {
-    val currentUser: FirebaseUser?
-    suspend fun login(email:String, password:String) : AuthResource<FirebaseUser>
-    suspend fun signup(name:String, email:String, password: String): AuthResource<FirebaseUser>
-    fun logout()
+    fun registerUser(email:String , password:String, user: User, result: (UiState<String>) -> Unit)
+    fun updateUserInfo(user: User, result: (UiState<String>) -> Unit)
+    fun loginUser(user: User, result: (UiState<String>) -> Unit)
+    fun forgotPassword(user: User, result: (UiState<String>) -> Unit)
 }

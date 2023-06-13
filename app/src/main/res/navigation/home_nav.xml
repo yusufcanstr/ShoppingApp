@@ -31,7 +31,14 @@
         android:id="@+id/profileFragment"
         android:name="com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.home.pages.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profileFragment_to_ordersFragment"
+            app:destination="@id/ordersFragment" />
+        <action
+            android:id="@+id/action_profileFragment_to_shoppingAddressFragment"
+            app:destination="@id/shoppingAddressFragment" />
+    </fragment>
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.home.DetailsFragment"
@@ -58,5 +65,23 @@
         <action
             android:id="@+id/action_listFragment_to_detailsFragment"
             app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.home.OrdersFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders" >
+        <action
+            android:id="@+id/action_ordersFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shoppingAddressFragment"
+        android:name="com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.home.ShoppingAddressFragment"
+        android:label="fragment_shopping_address"
+        tools:layout="@layout/fragment_shopping_address" >
+        <action
+            android:id="@+id/action_shoppingAddressFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
     </fragment>
 </navigation>

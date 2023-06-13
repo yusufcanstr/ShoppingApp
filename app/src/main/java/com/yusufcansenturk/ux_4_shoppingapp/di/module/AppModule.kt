@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.basket.BasketDao
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.basket.BasketDatabase
 import com.yusufcansenturk.ux_4_shoppingapp.di.dao.favorite.FavoriteDao
@@ -28,10 +29,13 @@ import javax.inject.Singleton
 object AppModule {
 
     @Provides
-    fun provideFirebaseAuth(): FirebaseAuth = FirebaseAuth.getInstance()
-
-    @Provides
-    fun provideFirebaseRepository(imp: AuthRepositoryImp): AuthRepository = imp
+    @Singleton
+    fun provideAuthRepository(
+        database: FirebaseFirestore,
+        auth: FirebaseAuth
+    ): AuthRepository {
+        return AuthRepositoryImp(auth,database)
+    }
 
     @Provides
     @Singleton

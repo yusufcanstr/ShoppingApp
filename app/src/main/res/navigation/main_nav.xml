@@ -9,7 +9,11 @@
         android:id="@+id/mainFragment"
         android:name="com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.home.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+    </fragment>
     <fragment
         android:id="@+id/splashFragment"
         android:name="com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.SplashFragment"
