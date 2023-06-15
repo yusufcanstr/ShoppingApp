@@ -41,11 +41,16 @@ class SignupFragment : Fragment() {
             if (validation()){
                 viewModel.register(
                     email = binding.emailEditText.text.toString(),
-                    password = binding.passwordEditText.toString(),
+                    password = binding.passwordEditText.text.toString(),
                     user =  getUserObj()
                 )
             }
         }
+
+        binding.loginTextView.setOnClickListener {
+            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
+        }
+
     }
 
     private fun observer() {

@@ -11,12 +11,16 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val repository: AuthRepository
+    val repository: AuthRepository
 ) : ViewModel(){
 
     private val _register = MutableLiveData<UiState<String>>()
     val register: LiveData<UiState<String>>
         get() = _register
+
+    private val _login = MutableLiveData<UiState<String>>()
+    val login: LiveData<UiState<String>>
+        get() = _login
 
     fun register(
         email: String,
@@ -31,5 +35,17 @@ class LoginViewModel @Inject constructor(
         ) { _register.value = it }
     }
 
+    fun login(
+        email: String,
+        password: String
+    ) {
+        _login.value = UiState.Loading
+        repository.loginUser(
+            email,
+            password
+        ){
+            _login.value = it
+        }
+    }
 
 }
