@@ -49,6 +49,9 @@
         <action
             android:id="@+id/action_loginFragment_to_appIntroFragment2"
             app:destination="@id/appIntroFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment"
@@ -63,5 +66,13 @@
         <action
             android:id="@+id/action_signupFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.yusufcansenturk.ux_4_shoppingapp.ui.fragments.login.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment" >
+        <action
+            android:id="@+id/action_forgotPasswordFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 </navigation>

@@ -17,3 +17,6 @@ fun View.disable(){
 fun View.enabled(){
     isEnabled = true
 }
+
+fun String.isValidEmail() =
+    isNotEmpty() && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()

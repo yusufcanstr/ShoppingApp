@@ -33,7 +33,7 @@ class LoginFragment : Fragment() {
         }
 
         binding.forgotPassLapel.setOnClickListener {
-
+            findNavController().navigate(R.id.action_loginFragment_to_forgotPasswordFragment)
         }
 
         binding.loginButton.setOnClickListener {
