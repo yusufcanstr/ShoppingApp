@@ -1,8 +1,5 @@
 # Shopping App
-
-
-
-## Proje Hakkında
+🥳🚀 Shopping App, örnek bir alışveriş uygulamasıdır. 🛒 Android platformunda geliştirilmiş olan bu uygulama, Kotlin programlama diliyle yazılmıştır. 🔥Firebase ve Room gibi teknolojiler kullanılarak geliştirilen uygulama, API verilerini çekerek kullanıcılara gerçek bir alışveriş deneyimi sunar.🌟
 
 
 ## Özellikler
